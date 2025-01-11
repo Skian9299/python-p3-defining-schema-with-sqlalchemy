@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 
-from sqlalchemy import Column, Integer, String, create_engine
-from sqlalchemy.ext.declarative import declarative_base
+# imports
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base
 
+# Create a Base class for the ORM
 Base = declarative_base()
 
+# Define the Student model
 class Student(Base):
-    pass
+    __tablename__ = 'students'
 
-if __name__ == '__main__':
-    pass
+    id = Column(Integer(), primary_key=True)
+    name = Column(String())
+
+# Create the SQLite engine and initialize the database schema
+engine = create_engine('sqlite:///students.db', future=True)
+Base.metadata.create_all(engine)
